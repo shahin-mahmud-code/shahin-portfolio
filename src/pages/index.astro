@@ -1,47 +1,23 @@
 ---
+import { getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
-const title = 'Shahin Mahmud — Full-stack & cloud developer';
-const description =
-  'Shahin Mahmud is a full-stack and cloud developer in Ottawa, building secure, accessible web applications with React, Node.js, Python and Azure.';
-
-const links = [
-  { label: 'GitHub', href: 'https://github.com/shahin-mahmud-code' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/shahin-mahmud/' },
-];
-
-const skills = [
-  { label: 'Front end', items: ['React', 'TypeScript', 'Vite'] },
-  { label: 'Back end', items: ['Node.js', 'Python', 'FastAPI', 'C# / .NET'] },
-  { label: 'Cloud & DevOps', items: ['Azure', 'Azure Functions', 'Docker', 'Azure DevOps CI/CD', 'Bicep', 'Git'] },
-  { label: 'Identity & security', items: ['Entra ID', 'OAuth 2.0 / OIDC', 'MSAL', 'Managed Identity', 'Azure RBAC', 'Key Vault'] },
-  { label: 'Applied AI', items: ['Azure OpenAI'] },
-  { label: 'Quality & accessibility', items: ['axe-core', 'Pa11y', 'Lighthouse', 'Robot Framework', 'Selenium'] },
-  { label: 'Low-code', items: ['Power Apps', 'Power Automate', 'Power BI'] },
-];
-
-const education = [
-  {
-    degree: 'Master of Engineering, Electrical and Computer Engineering',
-    school: 'University of Ottawa',
-    year: '2023',
-  },
-  {
-    degree: 'Bachelor of Science, Electrical and Electronic Engineering',
-    school: 'University of Dhaka',
-    year: '2016',
-  },
-];
+const entry = await getEntry('home', 'home');
+if (!entry) {
+  throw new Error('content/home.md is missing or was not loaded.');
+}
+const { title, description, name, location, role, tagline, links, skills, education } = entry.data;
+const { Content } = await render(entry);
 
 const year = new Date().getFullYear();
 ---
 
 <Base title={title} description={description}>
   <header class="wrap hero">
-    <p class="eyebrow">Ottawa, Ontario</p>
-    <h1>Shahin Mahmud</h1>
-    <p class="role">Full-stack &amp; cloud developer</p>
-    <p class="tagline">AI evolution needs humans</p>
+    <p class="eyebrow">{location}</p>
+    <h1>{name}</h1>
+    <p class="role">{role}</p>
+    <p class="tagline">{tagline}</p>
     <ul class="links" aria-label="Profiles">
       {
         links.map((link) => (
@@ -58,12 +34,7 @@ const year = new Date().getFullYear();
   <main id="main" class="wrap">
     <section class="section" aria-labelledby="about-heading">
       <h2 id="about-heading">About</h2>
-      <p>
-        I design, build and ship web applications and the cloud infrastructure behind them. My work spans React and
-        TypeScript front ends, Node.js and Python back ends, and containerized delivery on Azure with automated
-        pipelines. I put particular weight on security, accessibility, and documentation that lets teams run what I
-        build.
-      </p>
+      <Content />
     </section>
 
     <section class="section" aria-labelledby="skills-heading">
@@ -104,6 +75,6 @@ const year = new Date().getFullYear();
   </main>
 
   <footer class="wrap site-footer">
-    <p>© {year} Shahin Mahmud</p>
+    <p>© {year} {name}</p>
   </footer>
 </Base>
