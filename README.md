@@ -6,7 +6,7 @@ Live site: https://shahin-mahmud-code.github.io/shahin-portfolio/
 
 ## Develop
 
-Requires Node 22.23.4 or newer (24 recommended).
+Requires Node 22.23.4 or newer (26 LTS recommended).
 
 ```sh
 npm install
