@@ -7,7 +7,7 @@ Static site deployed to GitHub Pages: https://shahin-mahmud-code.github.io/shahi
 
 - Astro 7 + TypeScript (strict). Plain CSS with custom properties in `src/styles/`.
 - No UI framework until needed. Add React islands only where real interactivity is required.
-- Node >= 22.23.4 (`.nvmrc` is 24 to match CI).
+- Node >= 22.23.4 is the minimum Astro supports (`engines` in package.json). `.nvmrc` and CI both use Node 26 (LTS).
 - `npm run dev`, `npm run check` (type-check), `npm run build`, `npm run preview`.
 - `base` is `/shahin-portfolio`. Every internal link and asset path must respect `import.meta.env.BASE_URL`.
   When a custom domain is added, remove `base` and update `site` in `astro.config.mjs`.
