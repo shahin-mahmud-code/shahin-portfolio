@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectList from '../../components/ProjectList.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { getEntry } from 'astro:content';
+import { getPublishedProjects, withBase } from '../../utils/projects';
+
+const home = await getEntry('home', 'home');
+const name = home?.data.name ?? '';
+const projects = await getPublishedProjects();
+
+const title = `Projects — ${name}`;
+const description = `Case studies from ${name}: the problem, the role, the stack and the outcome.`;
+---
+
+<Base title={title} description={description}>
+  <header class="wrap page-head">
+    <nav aria-label="Breadcrumb">
+      <ol class="crumbs">
+        <li><a href={withBase('/')}>Home</a></li>
+        <li><a href={withBase('/projects/')} aria-current="page">Projects</a></li>
+      </ol>
+    </nav>
+    <h1 class="page-title">Projects</h1>
+    <p class="lede">Each case study covers the problem, my role, the stack and the outcome.</p>
+  </header>
+
+  <main id="main" class="wrap">
+    {
+      projects.length > 0 ? (
+        <ProjectList projects={projects} level={2} />
+      ) : (
+        <p>Case studies are on their way.</p>
+      )
+    }
+  </main>
+
+  <SiteFooter />
+</Base>

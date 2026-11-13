@@ -1,0 +1,84 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { categoryLabel, getPublishedProjects, withBase } from '../../utils/projects';
+
+export async function getStaticPaths() {
+  const projects = await getPublishedProjects();
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, summary, category, period, role, organization, stack, links } = project.data;
+
+const home = await getEntry('home', 'home');
+const name = home?.data.name ?? '';
+---
+
+<Base title={`${title} — ${name}`} description={summary}>
+  <header class="wrap page-head">
+    <nav aria-label="Breadcrumb">
+      <ol class="crumbs">
+        <li><a href={withBase('/')}>Home</a></li>
+        <li><a href={withBase('/projects/')}>Projects</a></li>
+        <li><a href={withBase(`/projects/${project.id}/`)} aria-current="page">{title}</a></li>
+      </ol>
+    </nav>
+    <p class="eyebrow">{categoryLabel[category]}</p>
+    <h1 class="page-title">{title}</h1>
+    <p class="lede">{summary}</p>
+  </header>
+
+  <main id="main" class="wrap">
+    <dl class="skills project-facts">
+      <div class="skill-group">
+        <dt>Period</dt>
+        <dd>{period}</dd>
+      </div>
+      <div class="skill-group">
+        <dt>Role</dt>
+        <dd>{role}</dd>
+      </div>
+      {
+        organization && (
+          <div class="skill-group">
+            <dt>Organization</dt>
+            <dd>{organization}</dd>
+          </div>
+        )
+      }
+      <div class="skill-group">
+        <dt>Stack</dt>
+        <dd>
+          <ul class="chips">
+            {stack.map((item) => <li>{item}</li>)}
+          </ul>
+        </dd>
+      </div>
+      {
+        links.length > 0 && (
+          <div class="skill-group">
+            <dt>Links</dt>
+            <dd>
+              <ul class="plain-list">
+                {links.map((link) => (
+                  <li>
+                    <a href={link.href}>{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        )
+      }
+    </dl>
+
+    <article class="case-study">
+      <Content />
+    </article>
+  </main>
+
+  <SiteFooter />
+</Base>

@@ -1,0 +1,11 @@
+---
+import { getEntry } from 'astro:content';
+
+const home = await getEntry('home', 'home');
+const name = home?.data.name ?? '';
+const year = new Date().getFullYear();
+---
+
+<footer class="wrap site-footer">
+  <p>© {year} {name}</p>
+</footer>

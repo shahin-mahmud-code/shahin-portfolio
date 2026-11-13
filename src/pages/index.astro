@@ -1,15 +1,17 @@
 ---
 import { getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import ProjectList from '../components/ProjectList.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { getPublishedProjects, withBase } from '../utils/projects';
 
+const projects = await getPublishedProjects();
 const entry = await getEntry('home', 'home');
 if (!entry) {
   throw new Error('content/home.md is missing or was not loaded.');
 }
 const { title, description, name, location, role, tagline, links, skills, education } = entry.data;
 const { Content } = await render(entry);
-
-const year = new Date().getFullYear();
 ---
 
 <Base title={title} description={description}>
@@ -36,6 +38,18 @@ const year = new Date().getFullYear();
       <h2 id="about-heading">About</h2>
       <Content />
     </section>
+
+    {
+      projects.length > 0 && (
+        <section class="section" aria-labelledby="projects-heading">
+          <h2 id="projects-heading">Projects</h2>
+          <ProjectList projects={projects} level={3} />
+          <p class="more">
+            <a href={withBase('/projects/')}>All projects</a>
+          </p>
+        </section>
+      )
+    }
 
     <section class="section" aria-labelledby="skills-heading">
       <h2 id="skills-heading">Skills</h2>
@@ -74,7 +88,5 @@ const year = new Date().getFullYear();
     </section>
   </main>
 
-  <footer class="wrap site-footer">
-    <p>© {year} {name}</p>
-  </footer>
+  <SiteFooter />
 </Base>

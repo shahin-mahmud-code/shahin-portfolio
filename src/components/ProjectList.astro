@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { categoryLabel, withBase } from '../utils/projects';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+  /** Heading level of each project title, one below the section heading. */
+  level?: 2 | 3;
+}
+
+const { projects, level = 3 } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
+---
+
+<ul class="projects">
+  {
+    projects.map((project) => (
+      <li class="project">
+        <Heading class="project-title">
+          <a href={withBase(`/projects/${project.id}/`)}>{project.data.title}</a>
+        </Heading>
+        <p class="project-meta">
+          {categoryLabel[project.data.category]} · {project.data.period}
+        </p>
+        <p class="project-summary">{project.data.summary}</p>
+      </li>
+    ))
+  }
+</ul>
