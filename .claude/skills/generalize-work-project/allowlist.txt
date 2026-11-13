@@ -1,0 +1,96 @@
+# Widely known, public technologies and terms that the leak check should not flag.
+# One entry per line, case-insensitive. Add only generic public terms, never anything employer-specific.
+
+# Months and common acronyms
+january
+february
+march
+april
+may
+june
+july
+august
+september
+october
+november
+december
+ai
+ui
+ux
+it
+api
+apis
+json
+html
+css
+sql
+rest
+llm
+llms
+pdf
+jpeg
+zip
+url
+http
+https
+id
+ci
+cd
+wcag
+oidc
+rbac
+cors
+
+# Languages and frameworks
+react
+typescript
+javascript
+vite
+node.js
+python
+fastapi
+c#
+.net
+html5
+css3
+bootstrap
+vitest
+playwright
+cypress
+selenium
+postman
+curl
+mermaid.js
+jszip
+html-to-image
+react-router-dom
+
+# Cloud, DevOps and security
+azure
+azure functions
+azure devops
+azure openai
+docker
+bicep
+git
+github
+entra id
+oauth
+msal
+managed identity
+key vault
+azure monitor
+power apps
+power automate
+power bi
+sharepoint
+postgresql
+axe-core
+pa11y
+lighthouse
+robot framework
+
+# Public Government of Canada terms
+government of canada
+government of canada design system
+gcds
