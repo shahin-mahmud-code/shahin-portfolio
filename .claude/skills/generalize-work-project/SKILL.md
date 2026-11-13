@@ -113,7 +113,7 @@ The draft must match the `projects` collection schema in `src/content.config.ts`
 title: <generic descriptive title, no internal names>
 summary: <one sentence on the problem class and the approach>
 category: work
-period: <year or year range only, e.g. 2026>
+period: "<year or year range only, e.g. 2026>"   # always quote it: a bare year is parsed as a number and fails the schema
 role: <generic role, e.g. Lead developer>
 organization: A Government of Canada department
 stack:
