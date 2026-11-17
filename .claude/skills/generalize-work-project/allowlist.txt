@@ -94,3 +94,11 @@ robot framework
 government of canada
 government of canada design system
 gcds
+express
+powershell
+azure container registry
+azure container instances
+azure cli
+container registry
+dns
+ip
