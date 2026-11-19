@@ -102,3 +102,9 @@ azure cli
 container registry
 dns
 ip
+
+# Public testing tools and web terms (added for the accessibility platform write-up)
+puppeteer
+supertest
+dom
+azure devops pipelines
